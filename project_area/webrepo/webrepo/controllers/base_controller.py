@@ -1,8 +1,8 @@
 #  BaseController handles common layout, features, initialization
 
 import webrepo.infrastructure.static_cache as static_cache
-from webrepo.infrastructure.supressor import suppress
 import pyramid.renderers
+import pyramid.httpexceptions as exc
 
 
 class BaseController:
@@ -16,8 +16,11 @@ class BaseController:
 
     @property
     def is_logged_in(self):
-        return True
+        return False
 
-    @suppress
-    def dont_expose_as_web_action_base(self):
-        print("Called dont_expose_as_web_action on base, what happened?")
+    # noinspection PyMethodMayBeStatic
+    def redirect(self, to_url, permanent=False):
+        if permanent:
+            raise exc.HTTPMovedPermanently(to_url)
+        raise exc.HTTPFound(to_url)
+
