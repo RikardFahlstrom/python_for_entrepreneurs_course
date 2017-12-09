@@ -1,6 +1,7 @@
 from pyramid.config import Configurator
 import webrepo.controllers.home_controller as home
 import webrepo.controllers.albums_controller as albums
+import webrepo.controllers.account_controller as account
 
 
 def main(global_config, **settings):
@@ -21,6 +22,7 @@ def init_routing(config):
 
     add_controller_routes(config, home.HomeController, 'home')
     add_controller_routes(config, albums.AlbumsController, 'albums')
+    add_controller_routes(config, account.AccountController, 'account')
 
     config.scan()
 
