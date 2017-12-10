@@ -6,15 +6,21 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="pyramid web application">
-        <meta name="author" content="Pylons Project">
+        <meta name="author" content="Rikard Fahlstrom">
         <link rel="shortcut icon" href="/static/img/fav.png?cacheId=${view.build_cache_id('/static/img/fav.png')}">
 
-        <title>Starter Scaffold for The Pyramid Web Framework</title>
+        <title>Rikard Fahlström</title>
 
         <!-- Bootstrap core CSS -->
         <link href="/static/bower_components/bootstrap-css/css/bootstrap.min.css?cacheId=${view.build_cache_id('/static/bower_components/bootstrap-css/css/bootstrap.min.css?')}" rel="stylesheet">
 
+        <!-- Custom Fonts -->
+        <link href="/static/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
         <!-- Custom styles for this scaffold -->
+        <link href="/static/css/landing-page.css?cacheId=${view.build_cache_id('/static/css/landing-page.css')}" rel="stylesheet">
+        <link href="/static/css/nav.css?cacheId=${view.build_cache_id('/static/css/nav.css')}" rel="stylesheet">
         <link href="/static/css/theme.css?cacheId=${view.build_cache_id('/static/css/theme.css')}" rel="stylesheet">
         <link href="/static/css/site.css?cacheId=${view.build_cache_id('/static/css/site.css')}" rel="stylesheet">
 
@@ -29,21 +35,81 @@
 
     <body>
 
-    <div class="nav">
-        <div class="account-nav">
-            <a href="/account/register">Register</a>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+        <div class="container topnav">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <img src="/static/img/logo.png"/> </a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">home</a>
+                    </li>
+                    <li>
+                        <a href="/albums">albums</a>
+                    </li>
+                    <li>
+                        <a href="/home/contact">contact</a>
+                    </li>
+                    <li>
+                        <a href="/home/about">about</a>
+                    </li>
+                    <li>
+                        <a href="/account/signin">sign in</a>
+                    </li>
+                    <li>
+                        <a href="/account/register">register</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
+        <!-- /.container -->
+    </nav>
 
-        <a href="/home/index">home</a> |
-        <a href="/albums">albums</a> |
-        <a href="/home/contact">contact</a> |
-        <a href="/home/about">about</a>
-    </div>
+
 
     <div class="main_content">
         <div metal:define-slot="main_content"></div>
     </div>
 
+        <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="/home/about">About</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#projects">Projects</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="mailto:rikard.fahlstrom@gmail.com" target="_blank">  <i class="fa fa-envelope"></i> Email</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">Copyright &copy; Rikard Fahlström 2017. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
