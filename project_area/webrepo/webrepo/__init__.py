@@ -1,7 +1,18 @@
 from pyramid.config import Configurator
+import os
+import webrepo
 import webrepo.controllers.home_controller as home
 import webrepo.controllers.albums_controller as albums
 import webrepo.controllers.account_controller as account
+from webrepo.data.dbsession import DbSessionFactory
+
+
+def init_db(config):
+    top_folder = os.path.dirname(webrepo.__file__)  # __file__ refers to current file, dirname gives path
+    rel_folder = os.path.join('db', 'webrepo.sqlite')  # .join is a "smart" path creator
+
+    db_file = os.path.join(top_folder, rel_folder)
+    DbSessionFactory.global_init(db_file)
 
 
 def main(global_config, **settings):
@@ -11,6 +22,7 @@ def main(global_config, **settings):
 
     init_includes(config)
     init_routing(config)
+    init_db(config)
 
     return config.make_wsgi_app()
 
