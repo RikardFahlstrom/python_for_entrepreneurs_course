@@ -4,6 +4,7 @@ import webrepo
 import webrepo.controllers.home_controller as home
 import webrepo.controllers.albums_controller as albums
 import webrepo.controllers.account_controller as account
+import webrepo.controllers.admin_controller as admin
 from webrepo.data.dbsession import DbSessionFactory
 
 
@@ -35,6 +36,7 @@ def init_routing(config):
     add_controller_routes(config, home.HomeController, 'home')
     add_controller_routes(config, albums.AlbumsController, 'albums')
     add_controller_routes(config, account.AccountController, 'account')
+    add_controller_routes(config, admin.AdminController, 'admin')
 
     config.scan()
 
