@@ -3,11 +3,15 @@ from webrepo.controllers.base_controller import BaseController
 from webrepo.services.account_service import AccountService
 from webrepo.viewmodels.register_viewmodel import RegisterViewModel
 from webrepo.viewmodels.signin_viewmodel import SigninViewModel
+import webrepo.infrastructure.cookie_auth as cookie_auth
 
 
 class AccountController(BaseController):
     @pyramid_handlers.action(renderer='templates/account/index.pt')
     def index(self):
+        if not self.logged_in_user_id:
+            print("Cannot view account page, must login")
+            self.redirect('/account/signin')
         return {}
 
     @pyramid_handlers.action(renderer='templates/account/signin.pt',
@@ -28,14 +32,20 @@ class AccountController(BaseController):
             vm.error = "Email address or password are incorrect."
             return vm.to_dict()
 
+        cookie_auth.set_auth(self.request, account.id)
+
         return self.redirect('/account')
+
+    @pyramid_handlers.action()
+    def logout(self):
+        cookie_auth.logout(self.request)
+        self.redirect('/')
 
     # GET /account/register
     @pyramid_handlers.action(renderer='templates/account/register.pt',
                              request_method='GET',
                              name='register')
     def register_get(self):
-        print('Calling register via GET...')
         vm = RegisterViewModel()
         return vm.to_dict()
 
