@@ -1,6 +1,8 @@
 import pyramid_handlers
 from webrepo.controllers.base_controller import BaseController
+from webrepo.services.account_service import AccountService
 from webrepo.viewmodels.register_viewmodel import RegisterViewModel
+from webrepo.viewmodels.signin_viewmodel import SigninViewModel
 
 
 class AccountController(BaseController):
@@ -8,19 +10,39 @@ class AccountController(BaseController):
     def index(self):
         return {}
 
-    @pyramid_handlers.action(renderer='templates/account/signin.pt')
-    def signin(self):
-        return {}
+    @pyramid_handlers.action(renderer='templates/account/signin.pt',
+                             request_method='GET',
+                             name='signin')
+    def signin_get(self):
+        return SigninViewModel().to_dict()
+
+    @pyramid_handlers.action(renderer='templates/account/signin.pt',
+                             request_method='POST',
+                             name='signin')
+    def signin_post(self):
+        vm = SigninViewModel()
+        vm.from_dict(self.data_dict)
+
+        account = AccountService.get_authenticated_account(vm.email, vm.password)
+        if not account:
+            vm.error = "Email address or password are incorrect."
+            return vm.to_dict()
+
+        return self.redirect('/account')
 
     # GET /account/register
-    @pyramid_handlers.action(renderer='templates/account/register.pt', request_method='GET', name='register')
+    @pyramid_handlers.action(renderer='templates/account/register.pt',
+                             request_method='GET',
+                             name='register')
     def register_get(self):
         print('Calling register via GET...')
         vm = RegisterViewModel()
         return vm.to_dict()
 
     # POST /account/register
-    @pyramid_handlers.action(renderer='templates/account/register.pt', request_method='POST', name='register')
+    @pyramid_handlers.action(renderer='templates/account/register.pt',
+                             request_method='POST',
+                             name='register')
     def register_post(self):
         vm = RegisterViewModel()
         vm.from_dict(self.request.POST)
@@ -29,8 +51,14 @@ class AccountController(BaseController):
         if vm.error:
             return vm.to_dict()
 
-        # validate no account exists, password match
-        # create account in DB
+        account = AccountService.find_account_by_email(vm.email)
+        if account:
+            vm.error = "An account with this email already exists. Please log in instead."
+            return vm.to_dict()
+
+        account = AccountService.create_account(vm.email, vm.password)
+        print("Registered new user: " + account.email)
+
         # send welcome email
 
         # redirect
