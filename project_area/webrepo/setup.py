@@ -17,7 +17,9 @@ requires = [
     'waitress',
     'sqlalchemy',
     'mailchimp',
-    'passlib'
+    'passlib',
+    'mailer',
+    'html2text'
 ]
 
 tests_require = [

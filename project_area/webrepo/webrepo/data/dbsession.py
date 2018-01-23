@@ -7,6 +7,8 @@ import webrepo.data.album
 import webrepo.data.track
 # noinspection PyUnresolvedReferences
 import webrepo.data.account
+# noinspection PyUnresolvedReferences
+import webrepo.data.passwordreset
 
 
 class DbSessionFactory:
