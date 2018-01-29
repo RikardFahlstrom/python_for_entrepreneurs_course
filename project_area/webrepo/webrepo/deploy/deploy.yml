@@ -1,0 +1,8 @@
+###
+# This playbook deploys the entire app for webrepo
+##
+- name: apply standard configuration to server
+  hosts: common
+  user: deployer
+  roles:
+          - common
