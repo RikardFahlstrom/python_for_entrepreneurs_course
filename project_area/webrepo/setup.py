@@ -19,7 +19,9 @@ requires = [
     'mailchimp',
     'passlib',
     'mailer',
-    'html2text'
+    'html2text',
+    'logbook',
+    'rollbar'
 ]
 
 tests_require = [
