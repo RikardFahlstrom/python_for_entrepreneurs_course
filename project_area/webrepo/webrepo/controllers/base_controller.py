@@ -1,4 +1,5 @@
 #  BaseController handles common layout, features, initialization
+import logbook
 
 import webrepo.infrastructure.static_cache as static_cache
 import pyramid.renderers
@@ -17,6 +18,9 @@ class BaseController:
         layout_render = pyramid.renderers.get_renderer('webrepo:templates/shared/_layout.pt')
         impl = layout_render.implementation()
         self.layout = impl.macros['layout']
+
+        log_name = 'Ctrls/' + type(self).__name__.replace("Controller", "")
+        self.log = logbook.Logger(log_name)
 
     @property
     def is_logged_in(self):

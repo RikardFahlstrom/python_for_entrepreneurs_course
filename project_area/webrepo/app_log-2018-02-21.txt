@@ -1,0 +1,2 @@
+[2018-02-21 05:23:21.821479] NOTICE: App: Logging initialized, level: INFO, mode: file mode: ./app_log.txt
+[2018-02-21 05:23:21.822259] NOTICE: App: Running in dev mode.
